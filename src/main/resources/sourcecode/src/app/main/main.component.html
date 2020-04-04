@@ -1,0 +1,51 @@
+<ngx-spinner>
+    <p class="m-4" style="font-size: 20px; color: white">Wczytywanie ...</p>
+</ngx-spinner>
+<div class="container">
+    <div class="row">
+        <div class="m-3">
+            <div class="row">
+                <h2>Komputerowe Systemy Rozpoznawania</h2>
+            </div>
+            <div class="row">
+                <h4>Damian Olczyk, Tomasz Majchrzak, Michał Kabat</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <form>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile"
+                    (change)="handleFileInput($event.target.files)" [disabled]="isFileSelected">
+                <label class="custom-file-label" for="customFile">{{label}}</label>
+            </div>
+        </form>
+    </div>
+    <div class="row m-3 d-block col-4" *ngIf="numberOfArticles > 0">
+        <div class="row mt-3">Liczba wczytanych artykułów:</div>
+        <div calss="ml-2"><b>{{numberOfArticles}}</b></div>
+
+        <div class="row mt-3"><label for="exampleFormControlSelect1">Podaj stosunek artykułów do
+                nauki/testowania:</label>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6">
+                <select class="form-control" id="exampleFormControlSelect1" (change)="selectRatio($event.target.value)">
+                    <option value="0.1">10%/90%</option>
+                    <option value="0.2">20%/80%</option>
+                    <option value="0.3">30%/70%</option>
+                    <option value="0.4" selected>40%/60%</option>
+                    <option value="0.5">50%/50%</option>
+                    <option value="0.6">60%/40%</option>
+                    <option value="0.7">70%/30%</option>
+                    <option value="0.8">80%/20%</option>
+                    <option value="0.9">90%/10%</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <span>{{noTeaching}}/{{noTesting}}</span>
+            </div>
+            <button type="button" class="btn btn-dark" (click)="sendToTeach()">Wyślij do nauczania</button>
+        </div>
+    </div>
+</div>
