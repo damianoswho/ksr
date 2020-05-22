@@ -1,0 +1,160 @@
+<ngx-spinner>
+    <p class="m-4" style="font-size: 20px; color: white">Wczytywanie ...</p>
+</ngx-spinner>
+<div class="container">
+    <div class="row m-3">
+        <div class="col-12">
+            <h2>Komputerowe Systemy Rozpoznawania</h2>
+        </div>
+        <div class="col-12">
+            <h4>Damian Olczyk, Tomasz Majchrzak, Michał Kabat</h4>
+        </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-10">
+            <form>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" accept=".sgm"
+                        (change)="handleFileInput($event.target.files)">
+                    <label class="custom-file-label" for="customFile">{{label}}</label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="m-3" *ngIf="step >= 2">
+        <div class="row m-2">
+            <div class="col-6">Liczba wczytanych artykułów:</div>
+            <div class="col-4"><b>{{numberOfArticles}}</b></div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <hr>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">Stosunek artykułów do nauki/testowania:</div>
+        </div>
+        <div class="row m-2">
+            <div class="col-7">
+                <select class="form-control" id="ratioFormControl" (change)="selectRatio($event.target.value)">
+                    <option value="0.1">10%/90%</option>
+                    <option value="0.2">20%/80%</option>
+                    <option value="0.3">30%/70%</option>
+                    <option value="0.4" selected>40%/60%</option>
+                    <option value="0.5">50%/50%</option>
+                    <option value="0.6">60%/40%</option>
+                    <option value="0.7">70%/30%</option>
+                    <option value="0.8">80%/20%</option>
+                    <option value="0.9">90%/10%</option>
+                </select>
+            </div>
+            <div class="col-3 text-center align-middle my-auto">{{noTeaching}}/{{noTesting}}</div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <p><input type="checkbox" (change)="selectDisproportion($event.target.checked)">
+                    Uwzględnij dysproporcję w klasach
+                </p>
+                <div class="col-10">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <button type="button" class="btn btn-dark w-100" (click)="teach()">Wyślij do
+                    nauczania</button>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="m-3" *ngIf="step >= 3">
+        <div class="row m-2">
+            <div class="col-6">Liczba wczytanych artykułów:</div>
+            <div class="col-4"><b>{{numberOfArticles}}</b></div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <hr>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-4">Metryka do klasyfikacji:</div>
+            <div class="col-6">
+                <select class="form-control" id="metricFormControl" (change)="selectMetric($event.target.value)">
+                    <option value="EUKLIDESOWA" selected>EUKLIDESOWA</option>
+                    <option value="ULICZNA">ULICZNA</option>
+                    <option value="CZEBYSZEWA">CZEBYSZEWA</option>
+                    <option value="CANBERRA">CANBERRA</option>
+                    <option value="MINKOWSKIEGO">MINKOWSKIEGO</option>
+                    <option value="MIARA_MIN_MAX">MIARA_MIN_MAX</option>
+                    <option value="MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM">MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-4">Liczba 'k' dla algorytmu kNN:</div>
+            <div class="col-6">
+                <select class="form-control" id="metricFormControl" (change)="selectKForKnn($event.target.value)">
+                    <option *ngFor="let k of numbersForKnn" value="{{k}}">{{ k }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10 mb-2">Atrybuty do klasyfikacji:</div>
+            <div class="col-10">
+                <p *ngFor="let attrDesc of attributesDescriptions">
+                    <input type="checkbox" checked (change)="selectAttribute($event.target.value)"
+                        [value]="attributesDescriptions.indexOf(attrDesc)"> {{attrDesc}}
+                </p>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <hr>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <button type="button" class="btn btn-dark w-100" (click)="classify()">Klasyfikuj</button>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-10">
+                <hr>
+            </div>
+        </div>
+        <div *ngIf="result !== undefined">
+            <div class="row m-2">
+                <p class="col-5">Liczba artykułów uczących: {{result.teachingSetSize}}</p>
+                <p class="col-5">Liczba artykułów do klasyfikacji: {{result.workingSetSize}}</p>
+                <p class="col-5">Metryka: {{result.metric}}</p>
+                <p class="col-5">Proporcje: {{result.ratio}}</p>
+                <p class="col-5">Średnia Precision: {{result.averagePrecision}}</p>
+                <p class="col-5">Średnia Accuracy: {{result.averageAccuracy}}</p>
+                <p class="col-5">Średnia Recall: {{result.averageRecall}}</p>
+            </div>
+            <div class="row m-2">
+                <div class="m-2 col-4" *ngFor="let class of result.classes">
+                    <h5>{{class.name}}</h5>
+                    <p>Liczba artykułów w zbiorze uczącym: {{class.noInstancesInTeachingSet}}</p>
+                    <p>True Positive: {{class.truePositive}}</p>
+                    <p>True Negative: {{class.trueNegative}}</p>
+                    <p>False Positive: {{class.falsePositive}}</p>
+                    <p>False Negative: {{class.falseNegative}}</p>
+                    <p>Accuracy: {{class.accuracy}}</p>
+                    <p>Precision: {{class.precision}}</p>
+                    <p>Recall: {{class.recall}}</p>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col-10">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
