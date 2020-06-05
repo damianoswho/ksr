@@ -50,22 +50,26 @@ export class MainComponent implements OnInit {
     this.attributesToProcess = Array<Boolean>(this.attributesDescriptions.length).fill(true);
   }
 
-  public handleFileInput(files) {
-    if (files[0] !== undefined) {
-      this.file = files[0];
-      this.label = this.file.name;
+  public handleFileInput(files: FileList) {
+    this.spinnerService.show();
+    let fileNames: Array<String> = new Array();
+    const fileList: Array<String> = new Array();
+    for (let i = 0; i < files.length; i++) {
+      fileNames.push(files.item(i).name);
       let fileReader = new FileReader();
       fileReader.onload = (e) => {
-        this.uploadFile(fileReader.result.toString());
+        fileList.push(fileReader.result + '');
+        if (fileList.length == files.length) {
+          this.uploadFile(fileList);
+        }
       }
-      fileReader.readAsText(this.file);
-      this.isFileSelected = true;
+      fileReader.readAsText(files[i]);
     }
+    this.label = fileNames.join(', ');
   }
 
-  public uploadFile(articles: String) {
-    this.spinnerService.show();
-    this.http.post<number>(this.serverUrl + '/applyArticles', articles).toPromise().then(response => {
+  public uploadFile(files: Array<String>) {
+    this.http.post<number>(this.serverUrl + '/applyArticles', files).toPromise().then(response => {
       this.numberOfArticles = response;
       this.selectRatio('0.4');
       this.spinnerService.hide();
@@ -89,6 +93,15 @@ export class MainComponent implements OnInit {
   public selectAttribute(event) {
     this.attributesToProcess[event] = !this.attributesToProcess[event];
   }
+
+  public changeNumberOfTeaching(){
+    if (this.noTeaching <= this.numberOfArticles && this.noTeaching > 0) {
+      this.noTesting = this.numberOfArticles - this.noTeaching;
+    } else {
+      this.noTeaching = this.numberOfArticles - this.noTesting;
+    }
+  }
+
 
   public teach() {
     this.spinnerService.show();

@@ -5,17 +5,30 @@ import java.util.List;
 
 public class Article {
 
+	/**
+	 * Dane możliwe do ekstrakcji z plików z artykułami, ale nie używane w algorytmach
+	 */
 	private String date;
 	private List<String> topics;
-	private List<String> places;
-	private String clasifiedPlace;
 	private List<String> people;
 	private List<String> orgs;
 	private List<String> exchanges;
 	private List<String> companies;
 	private String title;
+
+	/**
+	 * Dane możliwe do ekstrakcji z plików z artykułami, i wykorzystane do nauki i klasyfikacji
+	 */
+	// lista PLACE, do których przypisane są artykuły
+	private List<String> places;
+	// treść artykułów
 	private String body;
+
+	// PLACE do którego artykuł został zklasyfikowany
+	private String clasifiedPlace;
+	// treść artykułów po przeprowadzonej stemizacji
 	private String stemmedBody;
+	// wektor określający wartości atrybutów
 	private List<Double> attributes;
 
 	public Article() {

@@ -1,12 +1,25 @@
 package pl.damianolczyk.ksr.dto;
 
 public class ResultsForClass {
+
+	/**
+	 * nazwa klasy (PLACE)
+	 */
 	String name;
+
+	/**
+	 * liczba artykułów danej klasy w wybranym zestawie artykułów uczących
+	 */
 	Integer noInstancesInTeachingSet;
+
+	/**
+	 * miary jakości
+	 */
 	Integer truePositive;
 	Integer trueNegative;
 	Integer falsePositive;
 	Integer falseNegative;
+
 	Double accuracy;
 	Double precision;
 	Double recall;

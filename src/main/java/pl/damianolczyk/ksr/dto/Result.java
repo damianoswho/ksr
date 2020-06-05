@@ -2,14 +2,49 @@ package pl.damianolczyk.ksr.dto;
 
 import java.util.List;
 
+/**
+ * klasa zawierająca wyniki klasyfikacji
+ */
 public class Result {
+	/**
+	 * liczba artykułów uczących
+	 */
 	Integer teachingSetSize;
+
+	/**
+	 * liczba artykułów klasyfikowanych
+	 */
 	Integer workingSetSize;
+
+	/**
+	 * metryka wybrana do klasyfikacji
+	 */
 	String metric;
+
+	/**
+	 * liczba określająca proporcję wybranych artykułów uczących do artykułów klasyfikowanych
+	 */
 	Double ratio;
+
+	/**
+	 * średnia wartość Precision
+	 */
 	Double averagePrecision;
+
+	/**
+	 * średnia wartość Accuracy
+	 */
 	Double averageAccuracy;
+
+	/**
+	 * średnia wartość Recall
+	 */
 	Double averageRecall;
+
+
+	/**
+	 * lista zawierająca szczegółowe dane klasyfikacji dla poszczególnych klas
+	 */
 	List<ResultsForClass> classes;
 
 	public Integer getTeachingSetSize() {

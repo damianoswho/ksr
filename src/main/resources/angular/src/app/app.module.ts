@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms'
 import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
@@ -13,6 +14,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
     MainComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     NgxSpinnerModule,

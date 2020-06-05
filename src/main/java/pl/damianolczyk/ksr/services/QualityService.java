@@ -51,28 +51,28 @@ public class QualityService {
 
 	// True Positive = niepoprawnie niezakwalikowane do danej klasy
 	private Integer calculateFalseNegative(List<Article> workingSet, String place) {
-		Integer falseNegative = new Long(workingSet.stream().filter(article -> article.getPlaces().contains(place))
+		Integer falseNegative = Long.valueOf(workingSet.stream().filter(article -> article.getPlaces().contains(place))
 				.filter(article -> !article.getClasifiedPlace().equals(place)).count()).intValue();
 		return falseNegative;
 	}
 
 	// True Positive = poprawnie niezakwalikowane do danej klasy
 	private Integer calculateTrueNegative(List<Article> workingSet, String place) {
-		Integer trueNegative = new Long(workingSet.stream().filter(article -> !article.getPlaces().contains(place))
+		Integer trueNegative = Long.valueOf(workingSet.stream().filter(article -> !article.getPlaces().contains(place))
 				.filter(article -> !article.getClasifiedPlace().equals(place)).count()).intValue();
 		return trueNegative;
 	}
 
 	// True Positive = niepoprawnie zakwalikowane do danej klasy
 	private Integer calculateFalsePositive(List<Article> workingSet, String place) {
-		Integer falsePositive = new Long(workingSet.stream().filter(article -> !article.getPlaces().contains(place))
+		Integer falsePositive = Long.valueOf(workingSet.stream().filter(article -> !article.getPlaces().contains(place))
 				.filter(article -> article.getClasifiedPlace().equals(place)).count()).intValue();
 		return falsePositive;
 	}
 
 	// True Positive = poprawnie zakwalikowane do danej klasy
 	private Integer calculateTruePositive(List<Article> workingSet, String place) {
-		Integer falsePositive = new Long(workingSet.stream().filter(article -> article.getPlaces().contains(place))
+		Integer falsePositive = Long.valueOf(workingSet.stream().filter(article -> article.getPlaces().contains(place))
 				.filter(article -> article.getClasifiedPlace().equals(place)).count()).intValue();
 		return falsePositive;
 	}

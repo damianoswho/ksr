@@ -376,8 +376,8 @@ if (content.locals) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Damian\git\ksr\src\main\resources\sourcecode\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
-module.exports = __webpack_require__(/*! C:\Users\Damian\git\ksr\src\main\resources\sourcecode\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! C:\Users\Damian\git\ksr-new\src\main\resources\angular\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
+module.exports = __webpack_require__(/*! C:\Users\Damian\git\ksr-new\src\main\resources\angular\src\styles.css */"./src/styles.css");
 
 
 /***/ })

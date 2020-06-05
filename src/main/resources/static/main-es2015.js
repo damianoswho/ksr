@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ngx-spinner>\n    <p class=\"m-4\" style=\"font-size: 20px; color: white\">Wczytywanie ...</p>\n</ngx-spinner>\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"m-3\">\n            <div class=\"row\">\n                <h2>Komputerowe Systemy Rozpoznawania</h2>\n            </div>\n            <div class=\"row\">\n                <h4>Damian Olczyk, Tomasz Majchrzak, Michał Kabat</h4>\n            </div>\n        </div>\n    </div>\n    <div class=\"row m-3\">\n        <form>\n            <div class=\"custom-file\">\n                <input type=\"file\" class=\"custom-file-input\" id=\"customFile\"\n                    (change)=\"handleFileInput($event.target.files)\" [disabled]=\"isFileSelected\">\n                <label class=\"custom-file-label\" for=\"customFile\">{{label}}</label>\n            </div>\n        </form>\n    </div>\n    <div class=\"row m-3 d-block col-4\" *ngIf=\"numberOfArticles > 0\">\n        <div class=\"row mt-3\">Liczba wczytanych artykułów:</div>\n        <div calss=\"ml-2\"><b>{{numberOfArticles}}</b></div>\n\n        <div class=\"row mt-3\"><label for=\"exampleFormControlSelect1\">Podaj stosunek artykułów do\n                nauki/testowania:</label>\n        </div>\n        <div class=\"row mt-3\">\n            <div class=\"col-6\">\n                <select class=\"form-control\" id=\"exampleFormControlSelect1\" (change)=\"selectRatio($event.target.value)\">\n                    <option value=\"0.1\">10%/90%</option>\n                    <option value=\"0.2\">20%/80%</option>\n                    <option value=\"0.3\">30%/70%</option>\n                    <option value=\"0.4\" selected>40%/60%</option>\n                    <option value=\"0.5\">50%/50%</option>\n                    <option value=\"0.6\">60%/40%</option>\n                    <option value=\"0.7\">70%/30%</option>\n                    <option value=\"0.8\">80%/20%</option>\n                    <option value=\"0.9\">90%/10%</option>\n                </select>\n            </div>\n            <div class=\"col-6\">\n                <span>{{noTeaching}}/{{noTesting}}</span>\n            </div>\n            <button type=\"button\" class=\"btn btn-dark\" (click)=\"sendToTeach()\">Wyślij do nauczania</button>\n        </div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ngx-spinner>\n    <p class=\"m-4\" style=\"font-size: 20px; color: white\">Wczytywanie ...</p>\n</ngx-spinner>\n<div class=\"container\">\n    <div class=\"row m-3\">\n        <div class=\"col-12\">\n            <h2>Komputerowe Systemy Rozpoznawania</h2>\n        </div>\n        <div class=\"col-12\">\n            <h4>Damian Olczyk, Tomasz Majchrzak, Michał Kabat</h4>\n        </div>\n    </div>\n    <div class=\"row m-3\">\n        <div class=\"col-10\">\n            <form>\n                <div class=\"custom-file\">\n                    <input type=\"file\" multiple class=\"custom-file-input\" id=\"customFile\" accept=\".sgm\"\n                        (change)=\"handleFileInput($event.target.files)\">\n                    <label class=\"custom-file-label\" for=\"customFile\">{{label}}</label>\n                </div>\n            </form>\n        </div>\n    </div>\n    <div class=\"m-3\" *ngIf=\"step >= 2\">\n        <div class=\"row m-2\">\n            <div class=\"col-6\">Liczba wczytanych artykułów:</div>\n            <div class=\"col-4\"><b>{{numberOfArticles}}</b></div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <hr>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">Stosunek artykułów do nauki/testowania:</div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-7\">\n                <select class=\"form-control\" id=\"ratioFormControl\" (change)=\"selectRatio($event.target.value)\">\n                    <option value=\"0.1\">10%/90%</option>\n                    <option value=\"0.2\">20%/80%</option>\n                    <option value=\"0.3\">30%/70%</option>\n                    <option value=\"0.4\" selected>40%/60%</option>\n                    <option value=\"0.5\">50%/50%</option>\n                    <option value=\"0.6\">60%/40%</option>\n                    <option value=\"0.7\">70%/30%</option>\n                    <option value=\"0.8\">80%/20%</option>\n                    <option value=\"0.9\">90%/10%</option>\n                </select>\n            </div>\n            <div class=\"col-3 text-center align-middle my-auto\">\n                <input class=\"w-50\" type=\"number\" (change)=\"changeNumberOfTeaching()\"\n                    [(ngModel)]=\"noTeaching\">/{{noTesting}}\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <p><input type=\"checkbox\" (change)=\"selectDisproportion($event.target.checked)\">\n                    Uwzględnij dysproporcję w klasach\n                </p>\n                <div class=\"col-10\">\n                    <hr>\n                </div>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <button type=\"button\" class=\"btn btn-dark w-100\" (click)=\"teach()\">Wyślij do\n                    nauczania</button>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <hr>\n            </div>\n        </div>\n    </div>\n    <div class=\"m-3\" *ngIf=\"step >= 3\">\n        <div class=\"row m-2\">\n            <div class=\"col-6\">Liczba wczytanych artykułów:</div>\n            <div class=\"col-4\"><b>{{numberOfArticles}}</b></div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <hr>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-4\">Metryka do klasyfikacji:</div>\n            <div class=\"col-6\">\n                <select class=\"form-control\" id=\"metricFormControl\" (change)=\"selectMetric($event.target.value)\">\n                    <option value=\"EUKLIDESOWA\" selected>EUKLIDESOWA</option>\n                    <option value=\"ULICZNA\">ULICZNA</option>\n                    <option value=\"CZEBYSZEWA\">CZEBYSZEWA</option>\n                    <option value=\"CANBERRA\">CANBERRA</option>\n                    <option value=\"METRYKA_WLASNA\">METRYKA_WLASNA</option>\n                    <option value=\"MIARA_MIN_MAX\">MIARA_MIN_MAX</option>\n                    <option value=\"MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM\">MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM</option>\n                </select>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-4\">Liczba 'k' dla algorytmu kNN:</div>\n            <div class=\"col-6\">\n                <select class=\"form-control\" id=\"metricFormControl\" (change)=\"selectKForKnn($event.target.value)\">\n                    <option *ngFor=\"let k of numbersForKnn\" value=\"{{k}}\">{{ k }}</option>\n                </select>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10 mb-2\">Atrybuty do klasyfikacji:</div>\n            <div class=\"col-10\">\n                <p *ngFor=\"let attrDesc of attributesDescriptions\">\n                    <input type=\"checkbox\" checked (change)=\"selectAttribute($event.target.value)\"\n                        [value]=\"attributesDescriptions.indexOf(attrDesc)\"> {{attrDesc}}\n                </p>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <hr>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <button type=\"button\" class=\"btn btn-dark w-100\" (click)=\"classify()\">Klasyfikuj</button>\n            </div>\n        </div>\n        <div class=\"row m-2\">\n            <div class=\"col-10\">\n                <hr>\n            </div>\n        </div>\n        <div *ngIf=\"result !== undefined\">\n            <div class=\"row m-2\">\n                <p class=\"col-5\">Liczba artykułów uczących: {{result.teachingSetSize}}</p>\n                <p class=\"col-5\">Liczba artykułów do klasyfikacji: {{result.workingSetSize}}</p>\n                <p class=\"col-5\">Metryka: {{result.metric}}</p>\n                <p class=\"col-5\">Proporcje: {{result.ratio}}</p>\n                <p class=\"col-5\">Średnia Precision: {{result.averagePrecision}}</p>\n                <p class=\"col-5\">Średnia Accuracy: {{result.averageAccuracy}}</p>\n                <p class=\"col-5\">Średnia Recall: {{result.averageRecall}}</p>\n            </div>\n            <div class=\"row m-2\">\n                <div class=\"m-2 col-4\" *ngFor=\"let class of result.classes\">\n                    <h5>{{class.name}}</h5>\n                    <p>Liczba artykułów w zbiorze uczącym: {{class.noInstancesInTeachingSet}}</p>\n                    <p>True Positive: {{class.truePositive}}</p>\n                    <p>True Negative: {{class.trueNegative}}</p>\n                    <p>False Positive: {{class.falsePositive}}</p>\n                    <p>False Negative: {{class.falseNegative}}</p>\n                    <p>Accuracy: {{class.accuracy}}</p>\n                    <p>Precision: {{class.precision}}</p>\n                    <p>Recall: {{class.recall}}</p>\n                </div>\n            </div>\n            <div class=\"row m-2\">\n                <div class=\"col-10\">\n                    <hr>\n                </div>\n            </div>\n        </div>\n    </div>");
 
 /***/ }),
 
@@ -356,9 +356,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _main_main_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./main/main.component */ "./src/app/main/main.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm2015/ngx-spinner.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _main_main_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./main/main.component */ "./src/app/main/main.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm2015/ngx-spinner.js");
+
 
 
 
@@ -373,15 +375,16 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
         declarations: [
             _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-            _main_main_component__WEBPACK_IMPORTED_MODULE_5__["MainComponent"]
+            _main_main_component__WEBPACK_IMPORTED_MODULE_6__["MainComponent"]
         ],
         imports: [
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClientModule"],
-            ngx_spinner__WEBPACK_IMPORTED_MODULE_7__["NgxSpinnerModule"],
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"]
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_8__["NgxSpinnerModule"],
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"]
         ],
-        providers: [],
+        providers: [ngx_spinner__WEBPACK_IMPORTED_MODULE_8__["NgxSpinnerService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
     })
 ], AppModule);
@@ -417,6 +420,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm2015/ngx-spinner.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -425,36 +430,119 @@ let MainComponent = class MainComponent {
     constructor(http, spinnerService) {
         this.http = http;
         this.spinnerService = spinnerService;
-        this.serverUrl = "http://localhost:8080";
+        this.serverUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].serverUrl;
+        this.step = 1;
+        this.metric = 'EUKLIDESOWA';
+        this.numbersForKnn = Array(15).fill(1).map((x, i) => i + 1);
+        this.kForKnn = 1;
+        this.attributesToProcess = new Array();
+        this.includeDisproportion = false;
+        this.attributesDescriptions = [
+            'C1 - Liczba unikatowych słów ważnych. - Ilość unikatowych słów W.',
+            'C2 - Stosunek słów ważnych do nieważnych. - Stosunek W do liczby słów oryginalnego artykułu A (oryginalnego czyli przed poddaniem stemizacji oraz usunięciu słów ze stop listy).',
+            'C3 - Średnia liczba powtórzeń słów ważnych - W podzielona przez C1. ',
+            'C4 - Liczba zdań w artykule - Liczba wystąpień kropki (znaku interpunkcyjnego). ',
+            'C5 - Średnia liczba słów ważnych w zdaniu - W podzielona przez C4. ',
+            'C6 - Liczba akapitów - Liczba akapitów w artykule.',
+            'C7 - Średnia liczba zdań w akapicie - C4 podzielona przez C6. ',
+            'C8 - Czy występują cytaty - Wartość 0-1 stwierdzająca, czy w artykule wystąpił znak ".',
+            'C9 - Liczba wystąpień unikatowych słów kluczowych w artykule - słowa wybrane w trakcie nauczania programu, zależne od etykiety, których algorytm wyboru zostanie podany w dalszej części sprawozdania. ',
+            'C10 - Średnia liczba powtórzeń słów kluczowych - Liczba wystąpień słów kluczowych podzielona przez C9. ',
+            'C11 - Średnia długość słowa kluczowego - Suma znaków wszystkich słów kluczowych podzielona przez C9. ',
+            'C12 - Maksymalna liczba słów ważnych dzielących dwa słowa kluczowe.',
+            'C13 - Czy słowa kluczowe występują w więcej niż jednym akapicie.'
+        ];
         this.isFileSelected = false;
         this.label = 'Wybierz plik';
     }
-    ngOnInit() { }
+    ;
+    ngOnInit() {
+        this.attributesToProcess = Array(this.attributesDescriptions.length).fill(true);
+    }
     handleFileInput(files) {
+        this.spinnerService.show();
+        let fileNames = new Array();
+        const fileList = new Array();
+        for (let i = 0; i < files.length; i++) {
+            fileNames.push(files.item(i).name);
+            let fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                fileList.push(fileReader.result + '');
+                if (fileList.length == files.length) {
+                    this.uploadFile(fileList);
+                }
+            };
+            fileReader.readAsText(files[i]);
+        }
+        this.label = fileNames.join(', ');
+    }
+    uploadFile(files) {
+        this.http.post(this.serverUrl + '/applyArticles', files).toPromise().then(response => {
+            this.numberOfArticles = response;
+            this.selectRatio('0.4');
+            this.spinnerService.hide();
+            this.step = 2;
+        });
+    }
+    selectRatio(event) {
+        this.noTeaching = Math.round(this.numberOfArticles * Number(event));
+        this.noTesting = this.numberOfArticles - this.noTeaching;
+    }
+    selectMetric(event) {
+        this.metric = event;
+    }
+    selectKForKnn(event) {
+        this.kForKnn = event;
+    }
+    selectAttribute(event) {
+        this.attributesToProcess[event] = !this.attributesToProcess[event];
+    }
+    changeNumberOfTeaching() {
+        if (this.noTeaching <= this.numberOfArticles && this.noTeaching > 0) {
+            this.noTesting = this.numberOfArticles - this.noTeaching;
+        }
+        else {
+            this.noTeaching = this.numberOfArticles - this.noTesting;
+        }
+    }
+    teach() {
+        this.spinnerService.show();
+        this.http.post(this.serverUrl + '/teach', {}, { params: { 'noTeachingItems': this.noTeaching.toString(), 'includeDisproportion': this.includeDisproportion + '' } }).toPromise().then(response => {
+            this.step = this.step.valueOf() + 1;
+            this.result = undefined;
+            this.spinnerService.hide();
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+    classify() {
+        this.spinnerService.show();
+        this.http.post(this.serverUrl + '/classify', {}, { params: { 'metric': this.metric, 'k': this.kForKnn.toString(), 'attributesToProcess': this.attributesToProcess.toString() } }).toPromise().then(response => {
+            this.result = response;
+            this.step = this.step.valueOf() + 1;
+            this.spinnerService.hide();
+        }).catch(error => {
+            console.error(error);
+        });
+    }
+    setNewWorkingSet(files) {
         if (files[0] !== undefined) {
             this.spinnerService.show();
             this.file = files[0];
             this.label = this.file.name;
             let fileReader = new FileReader();
             fileReader.onload = (e) => {
-                this.uploadFile(fileReader.result.toString());
+                this.http.post(this.serverUrl + '/setNewWorkingSet', fileReader.result.toString()).toPromise().then(response => {
+                    this.step = this.step.valueOf() + 1;
+                    this.spinnerService.hide();
+                });
             };
             fileReader.readAsText(this.file);
             this.isFileSelected = true;
         }
     }
-    uploadFile(articles) {
-        this.http.post(this.serverUrl + '/applyArticles', articles).toPromise().then(response => {
-            this.numberOfArticles = response.length;
-            this.noTeaching = Math.round(this.numberOfArticles * 0.4);
-            this.noTesting = this.numberOfArticles - this.noTeaching;
-            this.spinnerService.hide();
-            this.articles = response;
-        });
-    }
-    selectRatio(event) {
-        this.noTeaching = Math.round(this.numberOfArticles * Number(event));
-        this.noTesting = this.numberOfArticles - this.noTeaching;
+    selectDisproportion(event) {
+        this.includeDisproportion = event;
     }
 };
 MainComponent.ctorParameters = () => [
@@ -489,7 +577,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 
 const environment = {
-    production: false
+    production: false,
+    serverUrl: 'http://localhost:8080'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -538,7 +627,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Damian\git\ksr\src\main\resources\sourcecode\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Damian\git\ksr-new\src\main\resources\angular\src\main.ts */"./src/main.ts");
 
 
 /***/ })

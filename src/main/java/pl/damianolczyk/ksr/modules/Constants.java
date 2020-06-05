@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Constants {
+	// lista tzw. STOPWORDS, które usuwane są z tekstu podczas stemizacji
 	public static final String[] STOPWORDS = { "a", "as", "able", "about", "above", "according", "accordingly", "across",
 			"actually", "after", "afterwards", "again", "against", "aint", "all", "allow", "allows", "almost", "alone",
 			"along", "already", "also", "although", "always", "am", "among", "amongst", "an", "and", "another", "any",
@@ -55,6 +56,10 @@ public class Constants {
 			"whoever", "whole", "whom", "whose", "why", "will", "willing", "wish", "with", "within", "without", "wont",
 			"wonder", "would", "would", "wouldnt", "yes", "yet", "you", "youd", "youll", "youre", "youve", "your",
 			"yours", "yourself", "yourselves", "zero", "reuter" };
+
+	/**
+	 * patterny dl ekstrakcji pól artykułów
+	 */
 	public static final Pattern DATE_PATTERN = Pattern.compile("<DATE>(.*)<\\/DATE>");
 	public static final Pattern TOPICS_PATTERN = Pattern.compile("<TOPICS><D>(.*)<\\/D><\\/TOPICS>");
 	public static final Pattern PLACES_PATTERN = Pattern.compile("<PLACES><D>(.*)<\\/D><\\/PLACES>");
@@ -64,5 +69,7 @@ public class Constants {
 	public static final Pattern COMPANIES_PATTERN = Pattern.compile("<COMPANIES><D>(.*)<\\/D><\\/COMPANIES>");
 	public static final Pattern TITLE_PATTERN = Pattern.compile("<TITLE>(.*)<\\/TITLE>");
 	public static final Pattern BODY_PATTERN = Pattern.compile("<BODY>(.*)<\\/BODY>");
+
+	// lista PLACE. Tylko Artykuły z tych PLACE będą brane do obliczeń
 	public static final List<String> CHOSEN_PLACES = Arrays.asList("west-germany", "usa", "france", "uk", "canada", "japan");
 }

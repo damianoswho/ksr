@@ -14,7 +14,7 @@
         <div class="col-10">
             <form>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile" accept=".sgm"
+                    <input type="file" multiple class="custom-file-input" id="customFile" accept=".sgm"
                         (change)="handleFileInput($event.target.files)">
                     <label class="custom-file-label" for="customFile">{{label}}</label>
                 </div>
@@ -48,7 +48,10 @@
                     <option value="0.9">90%/10%</option>
                 </select>
             </div>
-            <div class="col-3 text-center align-middle my-auto">{{noTeaching}}/{{noTesting}}</div>
+            <div class="col-3 text-center align-middle my-auto">
+                <input class="w-50" type="number" (change)="changeNumberOfTeaching()"
+                    [(ngModel)]="noTeaching">/{{noTesting}}
+            </div>
         </div>
         <div class="row m-2">
             <div class="col-10">
@@ -90,7 +93,7 @@
                     <option value="ULICZNA">ULICZNA</option>
                     <option value="CZEBYSZEWA">CZEBYSZEWA</option>
                     <option value="CANBERRA">CANBERRA</option>
-                    <option value="MINKOWSKIEGO">MINKOWSKIEGO</option>
+                    <option value="METRYKA_WLASNA">METRYKA_WLASNA</option>
                     <option value="MIARA_MIN_MAX">MIARA_MIN_MAX</option>
                     <option value="MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM">MIARA_SREDNIA_ARYTMETYCZNA_MINIMUM</option>
                 </select>

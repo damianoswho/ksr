@@ -2,7 +2,6 @@ package pl.damianolczyk.ksr.modules;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,14 +17,21 @@ import pl.damianolczyk.ksr.modules.CommonUtils.Metryka;
 @Service
 public class Knn {
 
+	/**
+	 * klasyfikuje podany artykuł do odpowiedniej klasy korzystając z algorytku kNN wykorzystując podaną metrykę/miarę
+	 * @param teachingSet - zbiór do którego będzie mierzona odległość w algorytmie kNN
+	 * @param articleToClasify - klasyfikowany artykuł
+	 * @param attributesToProcess lista atrybutów, które mają być brane pod uwagę podczas klasyfikacji
+	 * @param k - liczba najbliższych sąsiadów - do algorytmu kNN
+	 * @param metryka - metryka/miara, która będzie wykorzystana w algorytmie kNN
+	 * @return PLACE do którego został zakwalifikowany artykuł
+	 */
 	public String classify(List<Article> teachingSet, Article articleToClasify, List<Boolean> attributesToProcess,
 			int k, Metryka metryka) {
 		List<String> placesFromKnn = new ArrayList<>();
 		List<Article> knnList = new ArrayList<>();
 		Map<Article, Double> articlesAndDistanceMap = new HashMap<>();
 		Map<Article, Double> articlesAndDistanceMapSorted = new HashMap<>();
-		
-		System.err.println(articleToClasify.getPlaces().get(0));
 		
 		// zastosowanie odpowiedniej metryki
 		switch (metryka) {
@@ -45,8 +51,8 @@ public class Knn {
 			teachingSet.forEach(article -> articlesAndDistanceMap.put(article, metrykaCanberra(
 					article.getAttributes(attributesToProcess), articleToClasify.getAttributes(attributesToProcess))));
 			break;
-		case MINKOWSKIEGO:
-			teachingSet.forEach(article -> articlesAndDistanceMap.put(article, metrykaMinkowskiego(
+		case METRYKA_WLASNA:
+			teachingSet.forEach(article -> articlesAndDistanceMap.put(article, metrykaWlasna(
 					article.getAttributes(attributesToProcess), articleToClasify.getAttributes(attributesToProcess))));
 			break;
 		case MIARA_MIN_MAX:
@@ -87,9 +93,12 @@ public class Knn {
 	}
 
 	/*
-	 * ######################## ### METRYKI ############ ########################
+	 * ########################### METRYKI ####################################
 	 */
 
+	/**
+	 *  sqrt(sum(i=1 -> n, pow(pi - qi ,2))), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	private Double metrykaEuklidesowa(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements = new ArrayList<>();
 		for (int i = 0; i < dataElement1.size(); i++) {
@@ -97,10 +106,13 @@ public class Knn {
 		}
 
 		Double sum = sumElements.stream().collect(Collectors.summingDouble(Double::doubleValue));
-		double distance = Math.abs(Math.sqrt(sum));
+		double distance = Math.sqrt(sum);
 		return distance;
 	}
 
+	/**
+	 *  sum(i=1 -> n, pi - qi), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	private Double metrykaUliczna(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements = new ArrayList<>();
 		for (int i = 0; i < dataElement1.size(); i++) {
@@ -111,16 +123,24 @@ public class Knn {
 		return distance;
 	}
 
+
+	/**
+	 *  max( (i = 1 => n), |pi - qi|), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	private Double metrykaCzebyszewa(List<Double> dataElement1, List<Double> dataElement2) {
-		List<Double> sumElements = new ArrayList<>();
+		List<Double> elements = new ArrayList<>();
 		for (int i = 0; i < dataElement1.size(); i++) {
-			sumElements.add(Math.abs(dataElement1.get(i) - dataElement2.get(i)));
+			elements.add(Math.abs(dataElement1.get(i) - dataElement2.get(i)));
 		}
 
-		double distance = Collections.max(sumElements);
+		double distance = Collections.max(elements);
 		return distance;
 	}
 
+
+	/**
+	 *  sum(i=1 -> n, |pi - qi|/ |pi|+|qi|), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	public Double metrykaCanberra(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements = new ArrayList<>();
 		for (int i = 0; i < dataElement1.size(); i++) {
@@ -132,18 +152,25 @@ public class Knn {
 		return distance;
 	}
 
-	// metryka Minkowskiego dla p=3
-	public Double metrykaMinkowskiego(List<Double> dataElement1, List<Double> dataElement2) {
+
+	/**
+	 *  |sqrt(pow(sum(i=1 -> n, pow(pi - qi ,3)), 3))|, gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
+	public Double metrykaWlasna(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements = new ArrayList<>();
 		for (int i = 0; i < dataElement1.size(); i++) {
 			sumElements.add(Math.pow(dataElement1.get(i) - dataElement2.get(i), 3));
 		}
 
 		Double sum = sumElements.stream().collect(Collectors.summingDouble(Double::doubleValue));
-		double distance = Math.abs(Math.sqrt(sum));
+		double distance = Math.abs(Math.pow(sum, 3));
 		return distance;
 	}
 
+
+	/**
+	 *  sum(i=1 -> n, min(pi, qi)) / sum(i=1 -> n, max(pi, qi)), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	public Double miaraMinMax(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements1 = new ArrayList<>();
 		List<Double> sumElements2 = new ArrayList<>();
@@ -156,6 +183,10 @@ public class Knn {
 				/ sumElements2.stream().collect(Collectors.summingDouble(Double::doubleValue));
 	}
 
+
+	/**
+	 *  sum(i=1 -> n, min(pi, qi)) / (1/2 * sum(i=1 -> n, (pi + qi))), gdzie n - liczba atrybutów, p - atrybut zbioru do klasyfikacji, q - atrybut zbioru uczącego
+	 */
 	public Double miaraSredniaArytmetycznaMinimum(List<Double> dataElement1, List<Double> dataElement2) {
 		List<Double> sumElements1 = new ArrayList<>();
 		List<Double> sumElements2 = new ArrayList<>();
@@ -169,6 +200,9 @@ public class Knn {
 	}
 
 
+	/**
+	 * sortowanie wartości mapy rosnąco
+	 */
 	public static Map<Article, Double> sortByValueAsc(Map<Article, Double> articlesAndDistanceMap) {
 		List<Entry<Article, Double>> list = new ArrayList<>(articlesAndDistanceMap.entrySet());
 		list.sort(Entry.comparingByValue());
@@ -181,6 +215,10 @@ public class Knn {
 		return articlesAndDistanceMap;
 	}
 
+
+	/**
+	 * sortowanie wartości mapy malejąco
+	 */
 	public static Map<String, Integer> sortByValueDesc(Map<String, Integer> frequencyMap) {
 		List<Entry<String, Integer>> list = new ArrayList<>(frequencyMap.entrySet());
 		list.sort(Entry.comparingByValue());
@@ -189,7 +227,6 @@ public class Knn {
 		frequencyMap = new LinkedHashMap<>();
 		for (Entry<String, Integer> entry : list) {
 			frequencyMap.put(entry.getKey(), entry.getValue());
-			System.err.println(entry.getKey()+"\t"+entry.getValue());
 		}
 
 		return frequencyMap;
